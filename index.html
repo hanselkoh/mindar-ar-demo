@@ -58,33 +58,33 @@
     </a-scene>
 
     <script>
-        const marker = document.querySelector("#marker");
-        const displayContainer = document.querySelector("#displayContainer");
-        const displayPlane = document.querySelector("#displayPlane");
-        const imageIds = ['#card1', '#card2', '#card3'];
-        let currentIndex = 0;
-      
-        // Show when marker found
-        marker.addEventListener("targetFound", () => {
-          displayContainer.setAttribute("visible", true);
-        });
-      
-        // Hide when marker lost
-        marker.addEventListener("targetLost", () => {
-          displayContainer.setAttribute("visible", false);
-        });
-      
-        function nextImage() {
-          currentIndex = (currentIndex + 1) % imageIds.length;
-          displayPlane.setAttribute("src", imageIds[currentIndex]);
-          displayPlane.setAttribute("visible", true);
-        }
-      
-        function prevImage() {
-          currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
-          displayPlane.setAttribute("src", imageIds[currentIndex]);
-          displayPlane.setAttribute("visible", true);
-        }
-      </script>
+  const marker = document.querySelector("#marker");
+  const displayContainer = document.querySelector("#displayContainer");
+  const displayPlane = document.querySelector("#displayPlane");
+  const imageIds = ['#card1', '#card2', '#card3'];
+  let currentIndex = 0;
+
+  // Show when marker found
+  marker.addEventListener("targetFound", () => {
+    displayContainer.setAttribute("visible", true);
+  });
+
+  // Hide when marker lost
+  marker.addEventListener("targetLost", () => {
+    displayContainer.setAttribute("visible", false);
+  });
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % imageIds.length;
+    displayPlane.setAttribute("src", imageIds[currentIndex]);
+    displayPlane.setAttribute("visible", true);
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
+    displayPlane.setAttribute("src", imageIds[currentIndex]);
+    displayPlane.setAttribute("visible", true);
+  }
+</script>
   </body>
 </html>
