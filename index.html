@@ -31,7 +31,7 @@
   </head>
   <body style="margin: 0; overflow: hidden;">
     <!-- Navigation Buttons -->
-    <div id="controls">
+    <div id="controls" style="display: none;">
       <button onclick="prevImage()">←</button>
       <button onclick="nextImage()">→</button>
       <button onclick="toggle()">Test</button>
@@ -59,6 +59,7 @@
       const displayPlane = document.getElementById("displayPlane");
       const displayPlane2 = document.getElementById("displayPlane2");
       const marker = document.querySelector("#marker");
+      const uiContainer = document.getElementById("controls");
 
       let lastTouch = 0;
         document.addEventListener('touchend', function (event) {
@@ -72,13 +73,13 @@
         marker.addEventListener("targetFound", () => {
             console.log("Marker found!");
             // e.g. show some content
-            displayPlane2.style.display = 'block';
+            uiContainer.style.display = 'block';
         });
 
         marker.addEventListener("targetLost", () => {
             console.log("Marker lost!");
             // e.g. hide content
-            displayPlane2.style.display = 'none';
+            uiContainer.style.display = 'none';
         });
 
       function nextImage() {
