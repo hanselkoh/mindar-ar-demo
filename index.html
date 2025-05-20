@@ -80,14 +80,8 @@
 
       function toggle() {
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
-        displayPlane2.setAttribute("src", imageIds[currentIndex]);
-
-        if (displayPlane2.getAttribute("visible")) {
-            displayPlane2.setAttribute("visible", false);
-        } 
-        else {
-            displayPlane2.setAttribute("visible", true);
-        }
+        displayPlane.setAttribute("src", imageIds[currentIndex]);
+        displayPlane.setAttribute("visible", true);
       }
 
     </script>
