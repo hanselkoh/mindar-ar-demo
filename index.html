@@ -34,8 +34,8 @@
     <div id="controls" style="display: none;">
       <button onclick="prevImage()">←</button>
       <button onclick="nextImage()">→</button>
-      <button onclick="toggle()">Test</button>
-      <img id="displayPlane2" src="./Naruto_page1.jfif" alt="Test" height="150" width="100" >
+      <!--<button onclick="toggle()">Test</button>-->
+      <img id="displayPlane2" src="./Naruto_page1.jfif" alt="Test" height="100" width="75" >
     </div>
 
     <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -86,24 +86,21 @@
         currentIndex = (currentIndex + 1) % imageIds.length;
         displayPlane.setAttribute("src", imageIds[currentIndex]);
         displayPlane.setAttribute("visible", true); 
+
+        const imgId = imageIds[currentIndex].replace('#', '');
+        displayPlane2.src = document.getElementById(imgId).src;
       }
 
       function prevImage() {
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
         displayPlane.setAttribute("src", imageIds[currentIndex]);
         displayPlane.setAttribute("visible", true);
-      }
 
-      function toggle() {
-        currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
-        displayPlane.setAttribute("src", imageIds[currentIndex]);
-        displayPlane.setAttribute("visible", true);
-
-        // Update HTML <img> source (strip the # from the ID)
         const imgId = imageIds[currentIndex].replace('#', '');
         displayPlane2.src = document.getElementById(imgId).src;
-        displayPlane2.style.display = 'block';
       }
+
+      //function toggle() {}
 
     </script>
   </body>
