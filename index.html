@@ -5,7 +5,7 @@
 
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    
+
     <style>
       #controls {
         position: absolute;
@@ -53,6 +53,16 @@
       const imageIds = ['#card1', '#card2', '#card3'];
       let currentIndex = 0;
       const displayPlane = document.getElementById("displayPlane");
+
+      let lastTouch = 0;
+
+      document.addEventListener('touchend', function (event) {
+        const now = new Date().getTime();
+        if (now - lastTouch <= 300) {
+            event.preventDefault();
+        }
+        lastTouch = now;
+      }, false);
 
       function nextImage() {
         currentIndex = (currentIndex + 1) % imageIds.length;
