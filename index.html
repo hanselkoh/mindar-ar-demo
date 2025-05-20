@@ -50,6 +50,7 @@
     </a-scene>
 
     <script>
+        const marker = document.querySelector("#marker");
       const imageIds = ['#card1', '#card2', '#card3'];
       let currentIndex = 0;
       const displayPlane = document.getElementById("displayPlane");
@@ -63,16 +64,28 @@
             lastTouch = now;
         }, false);
 
+        // Show when marker found
+        marker.addEventListener("targetFound", () => {
+            currentIndex = 0;
+        });
+
+        /*
+        // Hide when marker lost
+        marker.addEventListener("targetLost", () => {
+            displayContainer.setAttribute("visible", false);
+        });
+        */
+
       function nextImage() {
         currentIndex = (currentIndex + 1) % imageIds.length;
         displayPlane.setAttribute("src", imageIds[currentIndex]);
-        displayPlane.setAttribute("visible", true); 
+        //displayPlane.setAttribute("visible", true); 
       }
 
       function prevImage() {
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
         displayPlane.setAttribute("src", imageIds[currentIndex]);
-        displayPlane.setAttribute("visible", true);
+        //displayPlane.setAttribute("visible", true);
       }
     </script>
   </body>
