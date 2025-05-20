@@ -26,6 +26,9 @@
         cursor: pointer;
       }
       #displayPlane2 {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -36,16 +39,13 @@
         z-index: 1000;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         border-radius: 10px;
-        display: none;
-        transition: opacity 0.3s ease;
-        opacity: 0;
-        pointer-events: none;
+        visibility: hidden;
         }
 
         #displayPlane2.show {
         opacity: 1;
         pointer-events: auto;
-        display: block;
+        visibility: visible;
         }
     </style>
   </head>
