@@ -86,7 +86,8 @@
         displayPlane.setAttribute("visible", true);
 
         // Update HTML <img> source (strip the # from the ID)
-        displayPlane2.src = imageIds[currentIndex].replace('#', '');
+        const imgId = imageIds[currentIndex].replace('#', '');
+        displayPlane2.src = document.getElementById(imgId).src;
         displayPlane2.style.display = 'block';
       }
 
