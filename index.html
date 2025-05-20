@@ -21,7 +21,7 @@
         font-size: 16px;
         border: none;
         border-radius: 5px;
-        background: #333;
+        background: #6495ED;
         color: white;
         cursor: pointer;
       }
@@ -32,7 +32,6 @@
     <div id="controls">
       <button onclick="prevImage()">←</button>
       <button onclick="nextImage()">→</button>
-      <button onclick="closeImage()">Close</button>
     </div>
 
     <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -63,10 +62,6 @@
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
         displayPlane.setAttribute("src", imageIds[currentIndex]);
         displayPlane.setAttribute("visible", true);
-      }
-
-      function closeImage() {
-        displayPlane.setAttribute("visible", false);
       }
     </script>
   </body>
