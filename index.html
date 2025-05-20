@@ -36,6 +36,16 @@
         z-index: 1000;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         border-radius: 10px;
+        display: none;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        pointer-events: none;
+        }
+
+        #displayPlane2.show {
+        opacity: 1;
+        pointer-events: auto;
+        display: block;
         }
     </style>
   </head>
@@ -46,7 +56,7 @@
       <button onclick="nextImage()">→</button>
     </div>
 
-    <img id="displayPlane2" style="display: none;" src="./Naruto_page1.jfif" alt="Preview"/>
+    <img id="displayPlane2" src="./Naruto_page1.jfif" alt="Preview"/>
 
     <a-scene
       mindar-image="imageTargetSrc: ./Naruto_Marker.mind;"
@@ -95,7 +105,7 @@
         updateImage();
 
         uiContainer.style.display = "flex";
-        displayPlane2.style.display = "block"; 
+        displayPlane2.classList.add("show"); 
       });
 
       marker.addEventListener("targetLost", () => {
@@ -103,7 +113,7 @@
         updateImage();
          
         uiContainer.style.display = "none";
-        displayPlane2.style.display = "none";   
+        displayPlane2.classList.remove("show");
       });
 
       function nextImage() {
