@@ -44,7 +44,16 @@
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <!--
       <a-entity mindar-image-target="targetIndex: 0">
+        <a-plane id="displayPlane" src="#card1" position="0 0 0" height="1.5" width="1" rotation="0 0 0"></a-plane>
+      </a-entity>
+      -->
+
+      <a-entity id="marker" mindar-image-target="targetIndex: 0"> </a-entity>
+
+      <a-entity id="displayContainer" visible="false">
         <a-plane id="displayPlane" src="#card1" position="0 0 0" height="1.5" width="1" rotation="0 0 0"></a-plane>
       </a-entity>
     </a-scene>
@@ -53,8 +62,20 @@
       const imageIds = ['#card1', '#card2', '#card3'];
       let currentIndex = 0;
       const displayPlane = document.getElementById("displayPlane");
+      const marker = document.querySelector("#marker");
+      const displayContainer = document.querySelector("#displayContainer");
 
       let lastTouch = 0;
+
+        // Show when marker found
+        marker.addEventListener("targetFound", () => {
+            displayContainer.setAttribute("visible", true);
+        });
+
+        // Hide when marker lost
+        marker.addEventListener("targetLost", () => {
+            displayContainer.setAttribute("visible", false);
+        });
 
       document.addEventListener('touchend', function (event) {
         const now = new Date().getTime();
