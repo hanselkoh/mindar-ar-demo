@@ -36,55 +36,45 @@
       <button onclick="nextImage()">→</button>
     </div>
 
-    <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB"
-         renderer="colorManagement: true, physicallyCorrectLights"
-         vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false" embedded>
+    <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <img id="card1" src="./Naruto_page1.jfif" /> 
+        <img id="card2" src="./Naruto_page2.jfif" />
+        <img id="card3" src="./Naruto_page3.jfif" />
+      </a-assets>
 
-        <a-assets>
-            <img id="card1" src="./Naruto_page1.jfif" />
-            <img id="card2" src="./Naruto_page2.jfif" />
-            <img id="card3" src="./Naruto_page3.jfif" />
-        </a-assets>
-
-        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-        <!-- Marker entity for detection only (no visual content inside) -->
-        <a-entity id="marker" mindar-image-target="targetIndex: 0"></a-entity>
-
-        <!-- Display plane in fixed position -->
-        <a-entity id="displayContainer" visible="false">
-            <a-plane id="displayPlane" src="#card1" position="0 0 -2" width="1" height="1.5"></a-plane>
-        </a-entity>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-plane id="displayPlane" src="#card1" position="0 0 0" height="1.5" width="1" rotation="0 0 0"></a-plane>
+      </a-entity>
     </a-scene>
 
     <script>
-  const marker = document.querySelector("#marker");
-  const displayContainer = document.querySelector("#displayContainer");
-  const displayPlane = document.querySelector("#displayPlane");
-  const imageIds = ['#card1', '#card2', '#card3'];
-  let currentIndex = 0;
+      const imageIds = ['#card1', '#card2', '#card3'];
+      let currentIndex = 0;
+      const displayPlane = document.getElementById("displayPlane");
 
-  // Show when marker found
-  marker.addEventListener("targetFound", () => {
-    displayContainer.setAttribute("visible", true);
-  });
+      let lastTouch = 0;
 
-  // Hide when marker lost
-  marker.addEventListener("targetLost", () => {
-    displayContainer.setAttribute("visible", false);
-  });
+      document.addEventListener('touchend', function (event) {
+        const now = new Date().getTime();
+        if (now - lastTouch <= 300) {
+            event.preventDefault();
+        }
+        lastTouch = now;
+      }, false);
 
-  function nextImage() {
-    currentIndex = (currentIndex + 1) % imageIds.length;
-    displayPlane.setAttribute("src", imageIds[currentIndex]);
-    displayPlane.setAttribute("visible", true);
-  }
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % imageIds.length;
+        displayPlane.setAttribute("src", imageIds[currentIndex]);
+        displayPlane.setAttribute("visible", true); 
+      }
 
-  function prevImage() {
-    currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
-    displayPlane.setAttribute("src", imageIds[currentIndex]);
-    displayPlane.setAttribute("visible", true);
-  }
-</script>
+      function prevImage() {
+        currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
+        displayPlane.setAttribute("src", imageIds[currentIndex]);
+        displayPlane.setAttribute("visible", true);
+      }
+    </script>
   </body>
 </html>
