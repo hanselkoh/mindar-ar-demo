@@ -34,6 +34,8 @@
     <div id="controls">
       <button onclick="prevImage()">←</button>
       <button onclick="nextImage()">→</button>
+      <button onclick="toggle()">Test</button>
+      <img id="displayPlane2" src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600">
     </div>
 
     <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -50,10 +52,10 @@
     </a-scene>
 
     <script>
-        const marker = document.querySelector("#marker");
       const imageIds = ['#card1', '#card2', '#card3'];
       let currentIndex = 0;
       const displayPlane = document.getElementById("displayPlane");
+      const displayPlane2 = document.getElementById("displayPlane2");
 
       let lastTouch = 0;
         document.addEventListener('touchend', function (event) {
@@ -64,30 +66,30 @@
             lastTouch = now;
         }, false);
 
-        // Show when marker found
-        marker.addEventListener("targetFound", () => {
-            currentIndex = 0;
-            displayPlane.setAttribute("src", imageIds[currentIndex]);
-        });
-
-        /*
-        // Hide when marker lost
-        marker.addEventListener("targetLost", () => {
-            displayContainer.setAttribute("visible", false);
-        });
-        */
-
       function nextImage() {
         currentIndex = (currentIndex + 1) % imageIds.length;
         displayPlane.setAttribute("src", imageIds[currentIndex]);
-        //displayPlane.setAttribute("visible", true); 
+        displayPlane.setAttribute("visible", true); 
       }
 
       function prevImage() {
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
         displayPlane.setAttribute("src", imageIds[currentIndex]);
-        //displayPlane.setAttribute("visible", true);
+        displayPlane.setAttribute("visible", true);
       }
+
+      function toggle() {
+        currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
+        displayPlane2.setAttribute("src", imageIds[currentIndex]);
+
+        if (displayPlane2.getAttribute("visible")) {
+            displayPlane2.setAttribute("visible", false);
+        } 
+        else {
+            displayPlane2.setAttribute("visible", true);
+        }
+      }
+
     </script>
   </body>
 </html>
