@@ -44,8 +44,9 @@
     <div id="controls" style="display: none;">
       <button onclick="prevImage()">←</button>
       <button onclick="nextImage()">→</button>
-      <img id="displayPlane2" src="./Naruto_page1.jfif" alt="Preview" height="100" width="75" />
     </div>
+
+    <img id="displayPlane2" src="./Naruto_page1.jfif" alt="Preview" height="100" width="75" />
 
     <a-scene
       mindar-image="imageTargetSrc: ./Naruto_Marker.mind;"
@@ -96,10 +97,12 @@
       // Show/Hide UI on marker detection
       marker.addEventListener("targetFound", () => {
         uiContainer.style.display = "flex";
+        displayPlane2.style.display = "block"; 
       });
 
       marker.addEventListener("targetLost", () => {
         uiContainer.style.display = "none";
+        displayPlane2.style.display = "none";   
       });
 
       function nextImage() {
