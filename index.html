@@ -91,11 +91,13 @@
 
       // Show/Hide UI on marker detection
       marker.addEventListener("targetFound", () => {
+        currentIndex = 0;
         uiContainer.style.display = "flex";
         displayPlane2.style.display = "block"; 
       });
 
       marker.addEventListener("targetLost", () => {
+        currentIndex = 0; 
         uiContainer.style.display = "none";
         displayPlane2.style.display = "none";   
       });
