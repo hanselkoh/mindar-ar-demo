@@ -35,7 +35,7 @@
       <button onclick="prevImage()">←</button>
       <button onclick="nextImage()">→</button>
       <button onclick="toggle()">Test</button>
-      <img id="displayPlane2" src="#card1" alt="Test">
+      <img id="displayPlane2" src="./Naruto_page1.jfif" alt="Test">
     </div>
 
     <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -84,9 +84,10 @@
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
         displayPlane.setAttribute("src", imageIds[currentIndex]);
         displayPlane.setAttribute("visible", true);
-        
-        displayPlane2.setAttribute("src", imageIds[currentIndex]);
-        displayPlane2.setAttribute("visible", true);
+
+        // Update HTML <img> source (strip the # from the ID)
+        displayPlane2.src = imageIds[currentIndex].replace('#', '');
+        displayPlane2.style.display = 'block';
       }
 
     </script>
