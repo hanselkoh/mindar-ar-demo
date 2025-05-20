@@ -111,15 +111,12 @@
       marker.addEventListener("targetLost", () => {
         currentIndex = 0;
         updateImage();
-         
-        //uiContainer.style.display = "none";
-        //displayPlane2.classList.remove("show");
 
-        // Optional: wait until fade-out is done before hiding completely
+        uiContainer.style.display = "none";
+        displayPlane2.classList.remove("show");
+
         setTimeout(() => {
-            if (!displayPlane2.classList.contains("show")) {
-            displayPlane2.style.visibility = "hidden";
-            }
+          displayPlane2.style.visibility = "hidden";
         }, 500);
       });
 
