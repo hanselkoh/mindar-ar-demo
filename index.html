@@ -35,6 +35,7 @@
       <button onclick="prevImage()">←</button>
       <button onclick="nextImage()">→</button>
       <button onclick="toggle()">Test</button>
+      <img id="displayPlane2" src="#card1" alt="Test">
     </div>
 
     <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
@@ -49,7 +50,7 @@
         <a-plane id="displayPlane" src="#card1" position="0 0 0" height="1.5" width="1" rotation="0 0 0"></a-plane>
       </a-entity>
 
-      <img id="displayPlane2" src="#card1" alt="Test">
+      
     </a-scene>
 
     <script>
