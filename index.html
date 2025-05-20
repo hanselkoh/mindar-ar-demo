@@ -1,73 +1,24 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <style>
-      #controls {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 10px;
-        z-index: 999;
-      }
-      #controls button {
-        padding: 10px 16px;
-        font-size: 16px;
-      }
-    </style>
   </head>
-  <body style="margin: 0; overflow: hidden;">
-
-    <!-- Navigation Buttons -->
-    <div id="controls">
-      <button onclick="prevImage()">←</button>
-      <button onclick="nextImage()">→</button>
-      <button onclick="closeImage()">Close</button>
-    </div>
-
-    <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB"
-             renderer="colorManagement: true, physicallyCorrectLights"
-             vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false"
-             embedded>
-             
+  <body>
+    <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
-        <img id="img1" src="Naruto_page1.jfif" />
-        <img id="img2" src="Naruto_page2.jfif" />
-        <img id="img3" src="Naruto_page3.jfif" />
-      </a-assets>
+        <img id="card" src="./Naruto_page1.jfif" />
+        <!--<a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
+      -->
+    </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-plane id="displayPlane" src="#img1" position="0 0 0" height="1.5" width="1.0" visible="true"></a-plane>
-      </a-entity>
+        <a-plane src="#card" position="0 0 0" height="1.5" width="1" rotation="0 0 0"></a-plane>
+        
+        <!--<a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel" animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate">
+        -->
+        </a-entity>
     </a-scene>
-
-    <script>
-      const imageIds = ['#img1', '#img2', '#img3'];
-      let currentIndex = 0;
-      const displayPlane = document.getElementById('displayPlane');
-
-      function nextImage() {
-        currentIndex = (currentIndex + 1) % imageIds.length;
-        displayPlane.setAttribute('src', imageIds[currentIndex]);
-        displayPlane.setAttribute('visible', true);
-      }
-
-      function prevImage() {
-        currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
-        displayPlane.setAttribute('src', imageIds[currentIndex]);
-        displayPlane.setAttribute('visible', true);
-      }
-
-      function closeImage() {
-        displayPlane.setAttribute('visible', false);
-      }
-    </script>
-
   </body>
 </html>
