@@ -55,24 +55,13 @@
       const displayPlane = document.getElementById("displayPlane");
 
       let lastTouch = 0;
-
-        // Show when marker found
-        marker.addEventListener("targetFound", () => {
-            displayContainer.setAttribute("visible", true);
-        });
-
-        // Hide when marker lost
-        marker.addEventListener("targetLost", () => {
-            displayContainer.setAttribute("visible", false);
-        });
-
-      document.addEventListener('touchend', function (event) {
-        const now = new Date().getTime();
-        if (now - lastTouch <= 300) {
+        document.addEventListener('touchend', function (event) {
+            const now = new Date().getTime();
+            if (now - lastTouch <= 300) {
             event.preventDefault();
-        }
-        lastTouch = now;
-      }, false);
+            }
+            lastTouch = now;
+        }, false);
 
       function nextImage() {
         currentIndex = (currentIndex + 1) % imageIds.length;
