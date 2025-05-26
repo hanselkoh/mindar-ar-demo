@@ -6,6 +6,31 @@
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
+        #displayImage,
+        #displayVideo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            z-index: 1000;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            visibility: hidden;
+        }
+
+        #displayImage.show,
+        #displayVideo.show {
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+        }
+
         #controls {
             position: absolute;
             bottom: 20px;
@@ -27,65 +52,42 @@
             color: white;
             cursor: pointer;
         }
-
-        #displayPlane2 {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            visibility: hidden;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 90vw;
-            max-height: 90vh;
-            object-fit: contain;
-            z-index: 1000;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-        }
-
-        #displayPlane2.show {
-            opacity: 1;
-            pointer-events: auto;
-            visibility: visible;
-        }
     </style>
 </head>
 
 <body style="margin: 0; overflow: hidden;">
     <!-- UI Panel -->
     <div id="controls" style="display: none;">
-        <button onclick="prevImage()">←</button>
-        <button onclick="nextImage()">→</button>
+        <button onclick="prevContent()">←</button>
+        <button onclick="nextContent()">→</button>
     </div>
 
-    <img id="displayPlane2" src="./Naruto_page1.jfif" alt="Preview" />
+    <img id="displayImage" style="display: none;" />
+    <video id="displayVideo" style="display: none;" controls playsinline muted></video>
 
     <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
-        <a-assets>
-            <img id="card1" src="./Naruto_page1.jfif" />
-            <img id="card2" src="./Naruto_page2.jfif" />
-            <img id="card3" src="./Naruto_page3.jfif" />
-        </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity id="marker" mindar-image-target="targetIndex: 0">
-            <!--
-        <a-plane id="displayPlane" src="#card1" position="0 0 0" height="1.5" width="1" rotation="0 0 0"></a-plane>
-        -->
+
         </a-entity>
     </a-scene>
 
     <script>
-        const imageIds = ['#card1', '#card2', '#card3'];
+        const contentItems = [
+            { type: "image", src: "./Naruto_page1.jfif" },
+            { type: "image", src: "./Naruto_page2.jfif" },
+            { type: "image", src: "./Naruto_page3.jfif" },
+            { type: "video", src: "./Naruto_video1.mp4" }
+        ];
         let currentIndex = 0;
 
-        //const displayPlane = document.getElementById("displayPlane");
-        const displayPlane2 = document.getElementById("displayPlane2");
+        const displayImage = document.getElementById("displayImage");
+        const displayVideo = document.getElementById("displayVideo");
+
         const marker = document.querySelector("#marker");
         const uiContainer = document.getElementById("controls");
 
@@ -102,35 +104,47 @@
         // Show/Hide UI on marker detection
         marker.addEventListener("targetFound", () => {
             currentIndex = 0;
-            updateImage();
-
+            updateContent();
             uiContainer.style.display = "flex";
-            displayPlane2.classList.add("show");
         });
 
         marker.addEventListener("targetLost", () => {
             currentIndex = 0;
-            updateImage();
-
-            uiContainer.style.display = "none";
-            displayPlane2.classList.remove("show");
+            displayImage.classList.remove("show");
+            displayVideo.classList.remove("show");
+            displayVideo.pause();
         });
 
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % imageIds.length;
-            updateImage();
+        function nextContent() {
+            currentIndex = (currentIndex + 1) % contentItems.length;
+            updateContent();
         }
 
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
-            updateImage();
+        function prevContent() {
+            currentIndex = (currentIndex - 1 + contentItems.length) % contentItems.length;
+            updateContent();
         }
 
-        function updateImage() {
-            //displayPlane.setAttribute("src", imageIds[currentIndex]);
-            //displayPlane.setAttribute("visible", true);
-            const imgId = imageIds[currentIndex].replace('#', '');
-            displayPlane2.src = document.getElementById(imgId).src;
+        function updateContent() {
+            const content = contentItems[currentIndex];
+
+            displayImage.classList.remove("show");
+            displayVideo.classList.remove("show");
+            displayImage.style.display = "none";
+            displayVideo.style.display = "none";
+            displayVideo.pause();
+
+            if (content.type === "image") {
+                displayImage.src = content.src;
+                displayImage.style.display = "block";
+                displayImage.classList.add("show");
+            } else if (content.type === "video") {
+                displayVideo.src = content.src;
+                displayVideo.style.display = "block";
+                displayVideo.classList.add("show");
+                displayVideo.load();
+                displayVideo.play();
+            }
         }
     </script>
 </body>
