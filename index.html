@@ -53,6 +53,15 @@
             color: white;
             cursor: pointer;
         }
+
+        a-scene canvas {
+            z-index: 1 !important;
+            position: absolute !important;
+        }
+
+        #controls {
+            z-index: 9999 !important;   
+        }
     </style>
 </head>
 
@@ -66,7 +75,7 @@
     <img id="displayImage" style="display: none;" />
     <video id="displayVideo" style="display: none;" controls playsinline muted></video>
 
-    <a-scene embedded mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB"
+    <a-scene mindar-image="imageTargetSrc: ./Naruto_Marker.mind;" color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
 
